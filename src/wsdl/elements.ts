@@ -66,6 +66,7 @@ export class Element {
   public ignoredNamespaces;
   public name?: string;
   public nsName?;
+  public typeName?: string;
   public prefix?: string;
   public schemaXmlns?;
   public valueKey: string;
@@ -78,6 +79,7 @@ export class Element {
     this.nsName = nsName;
     this.prefix = parts.prefix;
     this.name = parts.name;
+    this.typeName = parts.name;
     this.children = [];
     this.xmlns = {};
     this.schemaXmlns = {};
@@ -194,7 +196,6 @@ export class ElementElement extends Element {
   public $maxOccurs?: string;
   public $type?: string;
   public $ref?: string;
-  public typeName?: string;
   public targetNSAlias?: string;
   public targetNamespace?: string;
   public $lookupType?: string;
@@ -291,7 +292,7 @@ export class ElementElement extends Element {
       }
     } else {
       const children = this.children;
-      element[name] = {};
+      element[name] = { typeName: this.typeName };
       for (const child of children) {
         if (
           child instanceof ComplexTypeElement ||
@@ -702,6 +703,7 @@ export class MessageElement extends Element {
         }
 
         if (typeof this.parts[part.$name] === "object") {
+          this.parts[part.$name].typeName = type;
           this.parts[part.$name].prefix = nsName.prefix;
           this.parts[part.$name].xmlns = ns;
         }
@@ -953,9 +955,11 @@ export class OperationElement extends Element {
     const outputDesc = this.output
       ? this.output.description(definitions)
       : null;
+    const faultDesc = this.fault ? this.fault.description(definitions) : null;
     return {
       input: inputDesc && inputDesc[Object.keys(inputDesc)[0]],
       output: outputDesc && outputDesc[Object.keys(outputDesc)[0]],
+      fault: faultDesc && faultDesc[Object.keys(faultDesc)[0]],
     };
   }
 }

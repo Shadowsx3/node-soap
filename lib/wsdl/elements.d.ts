@@ -22,6 +22,7 @@ export declare class Element {
     ignoredNamespaces: any;
     name?: string;
     nsName?: any;
+    typeName?: string;
     prefix?: string;
     schemaXmlns?: any;
     valueKey: string;
@@ -45,7 +46,6 @@ export declare class ElementElement extends Element {
     $maxOccurs?: string;
     $type?: string;
     $ref?: string;
-    typeName?: string;
     targetNSAlias?: string;
     targetNamespace?: string;
     $lookupType?: string;
@@ -221,6 +221,7 @@ export declare class OperationElement extends Element {
     description(definitions: DefinitionsElement): {
         input: any;
         output: any;
+        fault: any;
     };
 }
 export declare class PortTypeElement extends Element {
