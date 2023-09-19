@@ -913,6 +913,23 @@ export class OperationElement extends Element {
         continue;
       }
       if (tag === "binding") {
+        if (child.name == "input" || child.name == "output") {
+          for (let i = 0, op; (op = child.children[i]); i++) {
+            if (op.name == "header") {
+              const messageName = splitQName(op.$message).name;
+              const message = definitions.messages[messageName];
+              if (message) {
+                message.postProcess(definitions);
+                if (message.element) {
+                  definitions.messages[message.element.$name] = message;
+                  child.header = message.element;
+                } else {
+                  child.header = message;
+                }
+              }
+            }
+          }
+        }
         this[child.name] = child;
         children.splice(i--, 1);
         continue;
