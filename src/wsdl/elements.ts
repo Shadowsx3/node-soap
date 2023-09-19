@@ -885,8 +885,10 @@ export class OperationElement extends Element {
   ]);
   public input: InputElement = null;
   public output: OutputElement = null;
+  public fault: Element = null;
   public inputSoap = null;
   public outputSoap = null;
+  public faultSoap = null;
   public style = "";
   public soapAction = "";
   public $soapAction?: string;
@@ -903,7 +905,11 @@ export class OperationElement extends Element {
   public postProcess(definitions: DefinitionsElement, tag: string) {
     const children = this.children;
     for (let i = 0, child; (child = children[i]); i++) {
-      if (child.name !== "input" && child.name !== "output") {
+      if (
+        child.name !== "input" &&
+        child.name !== "output" &&
+        child.name !== "fault"
+      ) {
         continue;
       }
       if (tag === "binding") {
@@ -1026,8 +1032,10 @@ export class BindingElement extends Element {
           method.soapAction = child.soapAction;
           method.inputSoap = child.input || null;
           method.outputSoap = child.output || null;
+          method.faultSoap = child.fault || null;
           method.inputSoap && method.inputSoap.deleteFixedAttrs();
           method.outputSoap && method.outputSoap.deleteFixedAttrs();
+          method.faultSoap && method.faultSoap.deleteFixedAttrs();
         }
       }
     }

@@ -208,8 +208,10 @@ export declare class OperationElement extends Element {
     };
     input: InputElement;
     output: OutputElement;
+    fault: Element;
     inputSoap: any;
     outputSoap: any;
+    faultSoap: any;
     style: string;
     soapAction: string;
     $soapAction?: string;
