@@ -114,7 +114,7 @@ GitHub issues have been disabled to focus on pull requests. ([#731](https://gith
   - `namespaceArrayElements` (*boolean*): Support non-standard array semantics. JSON arrays of the form `{list: [{elem: 1}, {elem: 2}]}` will be marshalled into XML as `<list><elem>1</elem></list> <list><elem>2</elem></list>`. If `false`, it would be marshalled into `<list> <elem>1</elem> <elem>2</elem> </list>`. (**Default:** `true`)
   - `stream` (*boolean*): Use streams to parse the XML SOAP responses. (**Default:** `false`)
   - `returnSaxStream` (*boolean*): Return the SAX stream, transferring responsibility of parsing XML to the end user. Only valid when the *stream* option is set to `true`. (**Default:** `false`)
-  - `parseReponseAttachments` (*boolean*): Treat response as multipart/related response with MTOM attachment. Reach attachments on the `lastResponseAttachments` property of SoapClient. (**Default:** `false`)
+  - `parseResponseAttachments` (*boolean*): Treat response as multipart/related response with MTOM attachment. Reach attachments on the `lastResponseAttachments` property of SoapClient. (**Default:** `false`)
 - `callback` (*Function*):
   - `err` (*Error* | *<AggregateError>*)
   - `result` (*Any*)

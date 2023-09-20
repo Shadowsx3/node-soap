@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /// <reference types="node" />
-import * as req from 'axios';
-import { ReadStream } from 'fs';
+import * as req from "axios";
+import { ReadStream } from "fs";
 export interface IHeaders {
     [k: string]: any;
 }
@@ -14,8 +14,17 @@ export interface IHttpClient {
 }
 /** @deprecated use SoapMethod */
 export declare type ISoapMethod = SoapMethod;
-export declare type SoapMethod = (args: any, callback: (err: any, result: any, rawResponse: any, soapHeader: any, rawRequest: any, mtomAttachments?: IMTOMAttachments) => void, options?: any, extraHeaders?: any, mtomAttachments?: IMTOMAttachments) => void;
-export declare type SoapMethodAsync = (args: any, options?: any, extraHeaders?: any) => Promise<[any, any, any, any, IMTOMAttachments?]>;
+export declare type SoapMethod = (args: any, callback: (err: any, result: any, soapHeader: any, httpHeader: any, soapResponse: any, rawResponse: any, rawRequest: any, mtomAttachments?: IMTOMAttachments) => void, options?: any, extraHeaders?: any, mtomAttachments?: IMTOMAttachments) => void;
+export declare type SoapMethodAsync = (args: any, options?: any, extraHeaders?: any) => Promise<{
+    err: any;
+    result: any;
+    soapHeader: any;
+    httpHeader: any;
+    soapResponse: any;
+    rawResponse: any;
+    rawRequest: any;
+    mtomAttachments?: IMTOMAttachments;
+}>;
 export declare type ISoapServiceMethod = (args: any, callback?: (data: any) => void, headers?: any, req?: any, res?: any, sender?: any) => any;
 export interface ISoapFaultError {
     Fault: ISoapFault;
@@ -116,7 +125,7 @@ export interface IOptions extends IWsdlBaseOptions {
     /** if your wsdl operations contains names with Async suffix, you will need to override the default promise suffix to a custom one, default: Async. */
     overridePromiseSuffix?: string;
     /** handle MTOM soapAttachments in response */
-    parseReponseAttachments?: boolean;
+    parseResponseAttachments?: boolean;
 }
 export interface IOneWayOptions {
     responseCode?: number;

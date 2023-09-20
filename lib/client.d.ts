@@ -1,26 +1,26 @@
 /// <reference types="node" />
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { IncomingHttpHeaders } from 'http';
-import { IHeaders, IMTOMAttachments, IOptions, ISecurity } from './types';
-import { WSDL } from './wsdl';
+import { EventEmitter } from "events";
+import { IncomingHttpHeaders } from "http";
+import { IHeaders, IMTOMAttachments, IOptions, ISecurity } from "./types";
+import { WSDL } from "./wsdl";
 export interface ISoapError extends Error {
     response?: any;
     body?: any;
 }
 export interface Client {
-    emit(event: 'request', xml: string, eid: string): boolean;
-    emit(event: 'message', message: string, eid: string): boolean;
-    emit(event: 'soapError', error: any, eid: string): boolean;
-    emit(event: 'response', body: any, response: any, eid: string): boolean;
+    emit(event: "request", xml: string, eid: string): boolean;
+    emit(event: "message", message: string, eid: string): boolean;
+    emit(event: "soapError", error: any, eid: string): boolean;
+    emit(event: "response", body: any, response: any, eid: string): boolean;
     /** Emitted before a request is sent. */
-    on(event: 'request', listener: (xml: string, eid: string) => void): this;
+    on(event: "request", listener: (xml: string, eid: string) => void): this;
     /** Emitted before a request is sent, but only the body is passed to the event handler. Useful if you don't want to log /store Soap headers. */
-    on(event: 'message', listener: (message: string, eid: string) => void): this;
+    on(event: "message", listener: (message: string, eid: string) => void): this;
     /** Emitted when an erroneous response is received. */
-    on(event: 'soapError', listener: (error: any, eid: string) => void): this;
+    on(event: "soapError", listener: (error: any, eid: string) => void): this;
     /** Emitted after a response is received. This is emitted for all responses (both success and errors). */
-    on(event: 'response', listener: (body: any, response: any, eid: string) => void): this;
+    on(event: "response", listener: (body: any, response: any, eid: string) => void): this;
 }
 export declare class Client extends EventEmitter {
     [method: string]: any;
