@@ -625,7 +625,7 @@ You must specify all of the namespaces and namespace prefixes yourself.  The ele
 - `args` (*Object*): Arguments that generate an XML document inside of the SOAP Body section.
 - `callback` (*Function*)
 - `options` (*Object*): See [Client.*method*(args, callback, options) - call *method* on the SOAP service.](#clientmethodargs-callback-options---call-method-on-the-soap-service) for a description.
-- `extraHeaders` (*Object*): Sets HTTP headers for the WSDL request.
+- `extraHeaders` (*Object*): Sets Soap headers for the WSDL request.
 
 #### Example
 

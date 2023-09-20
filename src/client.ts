@@ -576,8 +576,21 @@ export class Client extends EventEmitter {
     }
 
     let decodedHeaders;
-    if (this.soapHeaders) {
-      decodedHeaders = this.soapHeaders
+    let soapHeaders = this.soapHeaders;
+    if (extraHeaders) {
+      if (!this.soapHeaders) {
+        soapHeaders = [];
+      }
+      const processedSoapHeaders = this._processSoapHeader(
+        extraHeaders,
+        undefined,
+        undefined,
+        undefined
+      );
+      soapHeaders.push(processedSoapHeaders);
+    }
+    if (soapHeaders) {
+      decodedHeaders = soapHeaders
         .map((header) => {
           if (typeof header === "function") {
             return header(method, location, soapAction, args);
@@ -650,8 +663,10 @@ export class Client extends EventEmitter {
       for (const header in this.httpHeaders) {
         headers[header] = this.httpHeaders[header];
       }
-      for (const attr in extraHeaders) {
-        headers[attr] = extraHeaders[attr];
+      if (options && options.extraHeaders) {
+        for (const attr in options.extraHeaders) {
+          headers[attr] = options.extraHeaders[attr];
+        }
       }
     }
 
